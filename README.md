@@ -19,6 +19,20 @@ helm install my-router oci://ghcr.io/linuxdweller/charts/agent-sandbox-router --
   --set httproute.parentRef.namespace=<your-gateway-namespace> \
 ```
 
+## Testing
+
+Edit `tests/values.yaml` to match your environment before running the tests.
+
+```sh
+kubectl create namespace test-agent-sandbox
+
+python3 -m venv tests/.venv
+source tests/.venv/bin/activate
+pip install -r tests/requirements.txt
+
+pytest tests/ -s
+```
+
 ## Values
 
 | Key | Default | Description |

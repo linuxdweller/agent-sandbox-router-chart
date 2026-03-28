@@ -1,6 +1,4 @@
 namespace: test-agent-sandbox
-router:
-  replicaCount: 1
 httproute:
   hostname: "test-router.lab.linuxdweller.com"
 sandboxTemplate:
