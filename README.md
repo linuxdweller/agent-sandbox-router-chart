@@ -38,9 +38,9 @@ pytest tests/ -s
 | Key | Default | Description |
 |-----|---------|-------------|
 | `namespace` | `agent-sandbox-system` | Namespace to deploy the router into |
-| `router.replicaCount` | `2` | Number of router replicas |
+| `router.replicaCount` | `1` | Number of router replicas |
 | `router.image.repository` | `ghcr.io/linuxdweller/sandbox-router` | Router image repository |
-| `router.image.tag` | `0.2.1` | Router image tag |
+| `router.image.tag` | `v0.2.1` | Router image tag |
 | `router.image.pullPolicy` | `IfNotPresent` | Image pull policy |
 | `router.env` | `[PROXY_TIMEOUT_SECONDS=180]` | Environment variables for the router container |
 | `router.resources` | requests 250m/512Mi, limits 1000m/1Gi | Resource requests and limits |
