@@ -1,0 +1,39 @@
+{{- if .Values.sandboxTemplate.enabled }}
+apiVersion: extensions.agents.x-k8s.io/v1alpha1
+kind: SandboxTemplate
+metadata:
+  name: {{ .Values.sandboxTemplate.name }}
+  namespace: {{ .Values.sandboxTemplate.namespace }}
+  labels:
+    {{- include "agent-sandbox-router.labels" . | nindent 4 }}
+spec:
+  podTemplate:
+    spec:
+      runtimeClassName: {{ .Values.sandboxTemplate.runtimeClassName }}
+      containers:
+        - name: {{ .Values.sandboxTemplate.containerName }}
+          image: "{{ .Values.sandboxTemplate.image.repository }}:{{ .Values.sandboxTemplate.image.tag }}"
+          ports:
+            - containerPort: {{ .Values.sandboxTemplate.containerPort }}
+          readinessProbe:
+            httpGet:
+              path: {{ .Values.sandboxTemplate.readinessProbe.path | quote }}
+              port: {{ .Values.sandboxTemplate.readinessProbe.port }}
+            periodSeconds: {{ .Values.sandboxTemplate.readinessProbe.periodSeconds }}
+          livenessProbe:
+            httpGet:
+              path: {{ .Values.sandboxTemplate.livenessProbe.path | quote }}
+              port: {{ .Values.sandboxTemplate.livenessProbe.port }}
+
+
+          resources:
+            requests:
+              cpu: {{ index .Values.sandboxTemplate.resources.requests "cpu" | quote }}
+              memory: {{ index .Values.sandboxTemplate.resources.requests "memory" | quote }}
+              ephemeral-storage: {{ index .Values.sandboxTemplate.resources.requests "ephemeral-storage" | quote }}
+            limits:
+              cpu: {{ index .Values.sandboxTemplate.resources.limits "cpu" | quote }}
+              memory: {{ index .Values.sandboxTemplate.resources.limits "memory" | quote }}
+              ephemeral-storage: {{ index .Values.sandboxTemplate.resources.limits "ephemeral-storage" | quote }}
+      restartPolicy: {{ .Values.sandboxTemplate.restartPolicy }}
+{{- end }}

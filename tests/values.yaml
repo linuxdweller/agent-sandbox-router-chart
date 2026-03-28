@@ -1,0 +1,5 @@
+namespace: test-agent-sandbox
+router:
+  replicaCount: 1
+sandboxTemplate:
+  namespace: test-agent-sandbox

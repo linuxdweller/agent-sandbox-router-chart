@@ -1,0 +1,56 @@
+namespace: agent-sandbox-system
+
+router:
+  replicaCount: 1
+  image:
+    repository: ghcr.io/linuxdweller/sandbox-router
+    tag: v0.2.1
+    pullPolicy: IfNotPresent
+  env:
+    - name: PROXY_TIMEOUT_SECONDS
+      value: "180"
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+    limits:
+      cpu: "1000m"
+      memory: "1Gi"
+  securityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+httproute:
+  enabled: true
+  name: sandbox-router-route
+  hostname: ""
+  parentRef:
+    name: external
+    namespace: envoy
+
+sandboxTemplate:
+  enabled: true
+  name: python-sandbox-template
+  namespace: agent-sandboxes
+  containerName: python-runtime
+  image:
+    repository: us-central1-docker.pkg.dev/k8s-staging-images/agent-sandbox/python-runtime-sandbox
+    tag: "latest-main"
+  containerPort: 8888
+  runtimeClassName: gvisor
+  readinessProbe:
+    path: /
+    port: 8888
+    periodSeconds: 1
+  livenessProbe:
+    path: /
+    port: 8888
+  resources:
+    requests:
+      cpu: "250m"
+      memory: "512Mi"
+      ephemeral-storage: "512Mi"
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+      ephemeral-storage: "1Gi"
+  restartPolicy: OnFailure
