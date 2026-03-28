@@ -1,4 +1,4 @@
-# agent-sandbox-router
+# agent-sandbox-router-chart
 
 Helm chart that deploys the agent-sandbox router, its ClusterIP Service, an HTTPRoute, and a SandboxTemplate.
 
@@ -14,13 +14,16 @@ Helm chart that deploys the agent-sandbox router, its ClusterIP Service, an HTTP
 
 ```sh
 helm install my-router oci://ghcr.io/OWNER/charts/agent-sandbox-router \
-  --set router.image.repository=<your-router-image>
+  --set httproute.hostname=<your-preferred-hostname> \
+  --set httproute.parentRef.name=<your-gateway-name> \
+  --set httproute.parentRef.namespace=<your-gateway-namespace> \
 ```
 
 ## Values
 
 | Key | Default | Description |
 |-----|---------|-------------|
+| `namespace` | `agent-sandbox-system` | Namespace to deploy the router into |
 | `router.replicaCount` | `2` | Number of router replicas |
 | `router.image.repository` | `ghcr.io/linuxdweller/sandbox-router` | Router image repository |
 | `router.image.tag` | `0.2.1` | Router image tag |
