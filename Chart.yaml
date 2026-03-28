@@ -2,11 +2,11 @@ apiVersion: v2
 name: agent-sandbox-router
 description: Deploys the agent-sandbox router, Service, HTTPRoute, and SandboxTemplate
 type: application
-version: 0.1.0
-appVersion: "latest-main"
+version: 1.0.0
+appVersion: "v0.2.1"
 keywords: [agent-sandbox, sandbox, router, gateway]
-home: https://github.com/kubernetes-sigs/agent-sandbox
+home: https://github.com/linuxdweller/agent-sandbox-router-chart
 sources:
-  - https://github.com/kubernetes-sigs/agent-sandbox
+  - https://github.com/linuxdweller/agent-sandbox-router-chart
 maintainers:
-  - name: agent-sandbox-maintainers
+  - name: Amit Friedman
