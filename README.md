@@ -13,7 +13,7 @@ Helm chart that deploys the agent-sandbox router, its ClusterIP Service, an HTTP
 ## Install
 
 ```sh
-helm install my-router oci://ghcr.io/OWNER/charts/agent-sandbox-router \
+helm install my-router oci://ghcr.io/linuxdweller/charts/agent-sandbox-router --version 1.0.0 \
   --set httproute.hostname=<your-preferred-hostname> \
   --set httproute.parentRef.name=<your-gateway-name> \
   --set httproute.parentRef.namespace=<your-gateway-namespace> \
