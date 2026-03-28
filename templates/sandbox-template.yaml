@@ -9,12 +9,12 @@ metadata:
 spec:
   podTemplate:
     spec:
-      runtimeClassName: {{ .Values.sandboxTemplate.runtimeClassName }}
       containers:
         - name: {{ .Values.sandboxTemplate.containerName }}
           image: "{{ .Values.sandboxTemplate.image.repository }}:{{ .Values.sandboxTemplate.image.tag }}"
           ports:
             - containerPort: {{ .Values.sandboxTemplate.containerPort }}
+              protocol: TCP
           readinessProbe:
             httpGet:
               path: {{ .Values.sandboxTemplate.readinessProbe.path | quote }}
@@ -24,8 +24,6 @@ spec:
             httpGet:
               path: {{ .Values.sandboxTemplate.livenessProbe.path | quote }}
               port: {{ .Values.sandboxTemplate.livenessProbe.port }}
-
-
           resources:
             requests:
               cpu: {{ index .Values.sandboxTemplate.resources.requests "cpu" | quote }}

@@ -1,0 +1,62 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.35.0-standalone/serviceaccount.json
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: sandbox-client
+  namespace: test-agent-sandbox
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: sandbox-client
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: test-router-agent-sandbox-router-client
+subjects:
+  - kind: ServiceAccount
+    name: sandbox-client
+    namespace: test-agent-sandbox
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.35.0-standalone/configmap.json
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sandbox-client-script
+  namespace: test-agent-sandbox
+data:
+  run.py: |
+    from k8s_agent_sandbox import SandboxClient
+
+    with SandboxClient(
+        template_name="python-sandbox-template",
+        api_url="https://test-router.lab.linuxdweller.com",
+        namespace="test-agent-sandbox"
+    ) as sandbox:
+        print(sandbox.run("echo 'Hello from Local!'").stdout)
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/yannh/kubernetes-json-schema/master/v1.35.0-standalone/job.json
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: sandbox-client
+  namespace: test-agent-sandbox
+spec:
+  template:
+    spec:
+      serviceAccountName: sandbox-client
+      restartPolicy: Never
+      containers:
+        - name: sandbox-client
+          image: python:3.12-slim
+          command:
+            - sh
+            - -c
+            - pip install k8s-agent-sandbox --quiet && python -u /scripts/run.py
+          volumeMounts:
+            - name: script
+              mountPath: /scripts
+      volumes:
+        - name: script
+          configMap:
+            name: sandbox-client-script

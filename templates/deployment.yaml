@@ -15,6 +15,10 @@ spec:
     metadata:
       labels:
         {{- include "agent-sandbox-router.selectorLabels" . | nindent 8 }}
+        # Critical for ingress/egress to the sandbox.
+        # The sandbox controller automatically creates a NetworkPolicy which
+        # allows traffic using this specific label.
+        app: sandbox-router
     spec:
       securityContext:
         runAsUser: {{ .Values.router.securityContext.runAsUser }}

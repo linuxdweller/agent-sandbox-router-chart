@@ -44,7 +44,6 @@ helm install my-router oci://ghcr.io/OWNER/charts/agent-sandbox-router \
 | `sandboxTemplate.image.repository` | `us-central1-docker.pkg.dev/k8s-staging-images/agent-sandbox/python-runtime-sandbox` | Python runtime image |
 | `sandboxTemplate.image.tag` | `latest-main` | Python runtime image tag |
 | `sandboxTemplate.containerPort` | `8888` | Container port for the sandbox |
-| `sandboxTemplate.runtimeClassName` | `gvisor` | Runtime class for sandbox pods |
 | `sandboxTemplate.readinessProbe.path` | `/` | Readiness probe path |
 | `sandboxTemplate.readinessProbe.port` | `8888` | Readiness probe port |
 | `sandboxTemplate.readinessProbe.periodSeconds` | `1` | Readiness probe period |

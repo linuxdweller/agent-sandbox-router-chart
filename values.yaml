@@ -36,7 +36,6 @@ sandboxTemplate:
     repository: us-central1-docker.pkg.dev/k8s-staging-images/agent-sandbox/python-runtime-sandbox
     tag: "latest-main"
   containerPort: 8888
-  runtimeClassName: gvisor
   readinessProbe:
     path: /
     port: 8888
