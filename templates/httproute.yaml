@@ -29,4 +29,5 @@ spec:
           kind: Service
           name: sandbox-router-svc
           port: 8080
+          weight: 1
 {{- end }}
