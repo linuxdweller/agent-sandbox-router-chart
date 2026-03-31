@@ -1,4 +1,4 @@
-namespace: agent-sandbox-system
+namespace: agent-sandbox
 
 router:
   replicaCount: 1

@@ -37,7 +37,7 @@ pytest tests/ -s
 
 | Key | Default | Description |
 |-----|---------|-------------|
-| `namespace` | `agent-sandbox-system` | Namespace to deploy the router into |
+| `namespace` | `agent-sandbox` | Namespace to deploy the router into |
 | `router.replicaCount` | `1` | Number of router replicas |
 | `router.image.repository` | `ghcr.io/linuxdweller/sandbox-router` | Router image repository |
 | `router.image.tag` | `v0.2.1` | Router image tag |
