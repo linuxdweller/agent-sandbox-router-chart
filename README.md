@@ -53,7 +53,7 @@ pytest tests/ -s
 | `httproute.parentRef.namespace` | `envoy` | Gateway namespace |
 | `sandboxTemplate.enabled` | `true` | Create the SandboxTemplate resource |
 | `sandboxTemplate.name` | `python-sandbox-template` | SandboxTemplate name |
-| `sandboxTemplate.namespace` | `agent-sandboxes` | Namespace for SandboxTemplate and sandboxes (created by the chart) |
+| `sandboxTemplate.namespace` | `agent-sandbox` | Namespace for SandboxTemplate and sandboxes (created by the chart) |
 | `sandboxTemplate.containerName` | `python-runtime` | Container name in the sandbox pod |
 | `sandboxTemplate.image.repository` | `us-central1-docker.pkg.dev/k8s-staging-images/agent-sandbox/python-runtime-sandbox` | Python runtime image |
 | `sandboxTemplate.image.tag` | `latest-main` | Python runtime image tag |

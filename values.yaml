@@ -30,7 +30,7 @@ httproute:
 sandboxTemplate:
   enabled: true
   name: python-sandbox-template
-  namespace: agent-sandboxes
+  namespace: agent-sandbox
   containerName: python-runtime
   image:
     repository: us-central1-docker.pkg.dev/k8s-staging-images/agent-sandbox/python-runtime-sandbox
